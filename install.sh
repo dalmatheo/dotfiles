@@ -10,7 +10,7 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     sudo systemctl enable sddm.service
     sudo mkdir /etc/sddm.conf.d/
     sudo cp $HOME/dotfiles/sddm/configuration/* /etc/sddm.conf.d/
-    sudo cp -r $HOME/dotfiles/sddm/themes /usr/share/sddm/themes/sddm-theme
+    sudo cp -r $HOME/dotfiles/sddm/sddm-theme /usr/share/sddm/themes/sddm-theme
     gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark"   # for GTK3 apps
     gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
     cd $HOME

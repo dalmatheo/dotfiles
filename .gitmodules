@@ -1,3 +1,6 @@
 [submodule ".config/ags"]
 	path = .config/ags
 	url = https://github.com/dalmatheo/ags
+[submodule "sddm/sddm-theme"]
+	path = sddm/sddm-theme
+	url = https://github.com/dalmatheo/sddm-theme
