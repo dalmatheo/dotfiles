@@ -9,7 +9,7 @@ read pacman
 if [ "$pacman" != "${pacman#[Yy]}" ]
 then 
     echo Installing dependencies
-    sudo pacman -S ghostty fuzzel sddm cliphist chromium nautilus adw-gtk-theme nvidia-open nvidia-utils wayland egl-wayland libva-nvidia-driver hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk waybar ttf-jetbrains-mono-nerd zsh unzip libdbusmenu-gtk3 qt6-svg cmake meson cpio pkg-config
+    sudo pacman -S ghostty bluez fuzzel sddm cliphist chromium nautilus adw-gtk-theme nvidia-open nvidia-utils wayland egl-wayland libva-nvidia-driver hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk waybar ttf-jetbrains-mono-nerd zsh unzip libdbusmenu-gtk3 qt6-svg cmake meson cpio pkg-config
     hyprpm update
     hyprpm add https://github.com/Duckonaut/split-monitor-workspaces
     hyprpm enable split-monitor-workspaces
@@ -45,6 +45,7 @@ then
     fi
 
     sudo systemctl enable sddm.service
+    sudo systemctl enable bluetooth.service
     sudo mkdir /etc/sddm.conf.d/
     sudo cp $HOME/dotfiles/sddm/configuration/* /etc/sddm.conf.d/
     sudo cp -r $HOME/dotfiles/sddm/sddm-theme /usr/share/sddm/themes/sddm-theme
