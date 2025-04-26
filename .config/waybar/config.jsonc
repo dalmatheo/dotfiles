@@ -1,0 +1,85 @@
+{ 
+  "position": "top",
+  "exlusive": "true",
+  "passthrough": "true",
+  "gtk-layer-shell": "true",
+  "margin-top": 5,
+  "modules-left": [
+    "custom/distro",
+    "hyprland/workspaces",
+    "bluetooth"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "wireplumber",
+    "tray",
+    "disk"
+  ],
+
+  "custom/distro": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "~/.config/waybar/scripts/power-menu.sh"    
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "visible": "",
+      "default": "",
+      "empty": ""
+    },
+    "sort-by-number": true,
+    "tooltip": false
+  },
+
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "!",
+
+    "tooltip-format": 
+      "{num_connections} connected",
+    "tooltip-format-disabled": 
+      "Bluetooth Disabled",
+    "tooltip-format-connected": 
+      "{num_connections} connected\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": 
+      "{device_alias}",
+    "tooltip-format-enumerate-connected-battery": 
+      "{device_alias}: {device_battery_percentage}%",
+
+    "on-click": "~/.config/waybar/scripts/bluetooth-menu.sh",
+    "interval": 1,
+    "min-length": 1,
+    "max-length": 1
+  },
+
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%H:%M}",
+    "format-alt": "{:%d %m %Y}"
+  },
+
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "",
+    "on-click": "pwvucontrol",
+    "format-icons": ["", "", ""]
+  },
+
+  "disk":{
+    "interval": 3,
+    "path": "/",
+    "format": " {free}",
+    "unit": "GB", 
+    "on-click": "nautilus /"
+  },
+
+  "tray": {
+    "icon-size": 20
+  }
+}
