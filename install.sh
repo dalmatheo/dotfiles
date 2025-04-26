@@ -6,12 +6,14 @@ cd $HOME
 printf 'Do you want to install the packages ? (Y/n)'
 read pacman
 
-if [ "$pacman" != "${pacman#[Yy]}" ] ;then 
+if [ "$pacman" != "${pacman#[Yy]}" ]
+then 
     echo Installing dependencies
-    sudo pacman -S ghostty fuzzel sddm cliphist chromium nautilus adw-gtk-theme nvidia-open nvidia-utils wayland egl-wayland libva-nvidia-driver hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk waybar ttf-jetbrains-mono-nerd zsh unzip libdbusmenu-gtk3 qt6-svg
-    hyprpm reload
+    sudo pacman -S ghostty fuzzel sddm cliphist chromium nautilus adw-gtk-theme nvidia-open nvidia-utils wayland egl-wayland libva-nvidia-driver hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk waybar ttf-jetbrains-mono-nerd zsh unzip libdbusmenu-gtk3 qt6-svg cmake meson cpio pkg-config
+    hyprpm update
     hyprpm add https://github.com/Duckonaut/split-monitor-workspaces
     hyprpm enable split-monitor-workspaces
+    hyprpm update
     hyprpm reload
 
     cd $HOME
@@ -19,7 +21,8 @@ if [ "$pacman" != "${pacman#[Yy]}" ] ;then
     printf 'Do you want to install paru (Y/n)'
     read paru
 
-    if [ "$paru" != "${paru#[Yy]}" ] ;then
+    if [ "$paru" != "${paru#[Yy]}" ]
+    then
         echo Installing paru
         sudo pacman -S --needed git base-devel
         git clone https://aur.archlinux.org/paru.git
@@ -30,9 +33,13 @@ if [ "$pacman" != "${pacman#[Yy]}" ] ;then
 
         printf 'Do you want to install all the AUR packages ? (Y/n)'
         read pacman
-        if [ "$pacman" != "${pacman#[Yy]}" ] ;then 
+        if [ "$pacman" != "${pacman#[Yy]}" ]
+	then 
             echo Installing dependencies
             paru -S pwvucontrol hyprprop hyprshot bibata-cursor-theme 
+	else
+	    echo You wont get the AUR packages.
+	fi
     else
         echo You wont get paru, nor the AUR pacakges.
     fi
