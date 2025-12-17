@@ -7,7 +7,9 @@
   "modules-left": [
     "custom/distro",
     "hyprland/workspaces",
-    "bluetooth"
+    "backlight",
+    "custom/powerprofile",
+    "network"
   ],
   "modules-center": [
     "clock"
@@ -15,6 +17,7 @@
   "modules-right": [
     "wireplumber",
     "tray",
+    "battery",
     "disk"
   ],
 
@@ -37,26 +40,55 @@
     "tooltip": false
   },
 
-  "bluetooth": {
-    "format": "",
-    "format-disabled": "!",
-
-    "tooltip-format": 
-      "{num_connections} connected",
-    "tooltip-format-disabled": 
-      "Bluetooth Disabled",
-    "tooltip-format-connected": 
-      "{num_connections} connected\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": 
-      "{device_alias}",
-    "tooltip-format-enumerate-connected-battery": 
-      "{device_alias}: {device_battery_percentage}%",
-
-    "on-click": "~/.config/waybar/scripts/bluetooth-menu.sh",
-    "interval": 1,
-    "min-length": 1,
-    "max-length": 1
+  "custom/powerprofile": {
+    "format": "{}",
+    "exec": "powerprofilesctl get | sed 's/performance/⚡/; s/balanced//; s/power-saver//'",
+    "interval": 3,
+    "on-click": "powerprofilesctl set performance",
+    "on-click-right": "powerprofilesctl set power-saver",
+    "on-click-middle": "powerprofilesctl set balanced",
+    "tooltip": false
   },
+
+  "backlight": {
+    "format": " {percent}%",
+    "interval": 2,
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  "network": {
+    "format-wifi": "",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "",
+    "format-alt" : "{ipaddr}",
+    "tooltip-format" : "{essid}",
+    "tooltip": true,
+    "interval": 2
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "tooltip": true,
+    "interval": 15,
+
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+
+    "states": {
+      "good": 80,
+      "warning": 30,
+      "critical": 15
+    }
+  },
+
 
   "clock": {
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
@@ -80,6 +112,6 @@
   },
 
   "tray": {
-    "icon-size": 20
+    "icon-size": 24
   }
 }

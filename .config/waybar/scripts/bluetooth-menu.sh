@@ -1,103 +1,80 @@
 #!/usr/bin/env bash
+# Hyprland-friendly Bluetooth menu using fuzzel
+# Works reliably by querying bluetoothctl synchronously
 
-# Author: Jesse Mirabel (@sejjy)
-# GitHub: https://github.com/sejjy/mechabar
+# Dependencies
+for cmd in bluetoothctl fuzzel; do
+    command -v $cmd >/dev/null 2>&1 || { echo "$cmd required"; exit 1; }
+done
 
-# Rofi window override
-override_disabled="mainbox { children: [ textbox-custom, listview ]; } listview { lines: 1; padding: 6px 6px 8px; }"
-
-get_device_icon() {
-  local device_mac=$1
-  device_info=$(bluetoothctl info "$device_mac")
-  device_icon=$(echo "$device_info" | grep "Icon:" | awk '{print $2}')
-
-  case "$device_icon" in
-  "audio-headphones" | "audio-headset") echo "󰋋 " ;; # Headphones
-  "video-display" | "computer") echo "󰍹 " ;;         # Monitor
-  "audio-input-microphone") echo "󰍬 " ;;             # Microphone
-  "input-keyboard") echo "󰌌 " ;;                     # Keyboard
-  "audio-speakers") echo "󰓃 " ;;                     # Speakers
-  "input-mouse") echo "󰍽 " ;;                        # Mouse
-  "phone") echo "󰏲 " ;;                              # Phone
-  *)
-    echo "󰂱 " # Default
-    ;;
-  esac
+# Scan for available devices
+scan_devices() {
+    bluetoothctl scan on &
+    sleep 5
+    bluetoothctl scan off
+    bluetoothctl devices | awk '{$1=""; print substr($0,2)}'  # MAC NAME
 }
 
+# List paired devices
+list_paired() {
+    bluetoothctl paired-devices | awk '{$1=""; print substr($0,2)}'  # MAC NAME
+}
+
+# Get device status
+get_device_status() {
+    local mac=$1
+    info=$(bluetoothctl info "$mac")
+    connected=$(echo "$info" | grep "Connected: yes" &>/dev/null && echo "Connected" || echo "Disconnected")
+    paired=$(echo "$info" | grep "Paired: yes" &>/dev/null && echo "Paired" || echo "Not paired")
+    echo "$paired | $connected"
+}
+
+# Build menu
+build_menu() {
+    local devices=("$@")
+    menu=""
+    for dev in "${devices[@]}"; do
+        mac=$(echo "$dev" | awk '{print $1}')
+        name=$(echo "$dev" | awk '{for(i=2;i<=NF;i++) printf $i " "; print ""}' | sed 's/ $//')
+        status=$(get_device_status "$mac")
+        menu+="$mac - $name [$status]\n"
+    done
+    echo -e "$menu"
+}
+
+# Device action menu
+device_action_menu() {
+    local mac=$1
+    status=$(get_device_status "$mac")
+    actions=""
+    [[ "$status" == *Connected* ]] && actions+="Disconnect\n" || actions+="Connect\n"
+    [[ "$status" == *Paired* ]] && actions+="Remove\n" || actions+="Pair\n"
+    actions+="Back"
+    echo -e "$actions" | fuzzel --prompt "Device $mac > "
+}
+
+# Main loop
 while true; do
-  # Get list of paired devices
-  bluetooth_devices=$(bluetoothctl devices | while read -r line; do
-    device_mac=$(echo "$line" | awk '{print $2}')
-    device_name=$(echo "$line" | awk '{$1=$2=""; print substr($0, 3)}')
-    icon=$(get_device_icon "$device_mac")
-    echo "$icon $device_name"
-  done)
+    paired=$(list_paired)
+    scanned=$(scan_devices)
+    mapfile -t all_devices < <(echo -e "$paired\n$scanned" | sort -u)
+    [[ ${#all_devices[@]} -eq 0 ]] && { notify-send "No Bluetooth devices found"; exit; }
 
-  options=$(
-    echo "Scan for devices 󰏌"
-    echo "Disable Bluetooth"
-    echo "$bluetooth_devices"
-  )
-  option="Enable Bluetooth"
+    # Show device menu
+    menu=$(build_menu "${all_devices[@]}")
+    selection=$(echo -e "$menu" | fuzzel --prompt "Bluetooth > ")
+    [[ -z "$selection" ]] && exit 0  # Exit on ESC
+    mac=$(echo "$selection" | awk '{print $1}')
 
-  # Get Bluetooth status
-  bluetooth_status=$(bluetoothctl show | grep "Powered:" | awk '{print $2}')
-
-  if [[ "$bluetooth_status" == "yes" ]]; then
-    selected_option=$(echo -e "$options" | fuzzel --dmenu -p " " || pkill -x fuzzle)
-  else
-    selected_option=$(echo -e "$option" | fuzzel --dmenu -p " " || pkill -x fuzzle)
-  fi
-
-  # Exit if no option is selected
-  if [ -z "$selected_option" ]; then
-    exit
-  fi
-
-  # Actions based on selected option
-  case "$selected_option" in
-  "Enable Bluetooth")
-    notify-send "Bluetooth Enabled" -i "package-installed-outdated"
-    rfkill unblock bluetooth
-    bluetoothctl power on
-    sleep 1
-    ;;
-  "Disable Bluetooth")
-    notify-send "Bluetooth Disabled" -i "package-broken"
-    rfkill block bluetooth
-    bluetoothctl power off
-    exit
-    ;;
-  "Scan for devices"*)
-    notify-send "Press '?' to show help." -i "package-installed-outdated"
-    kitty --title '󰂱 Blueman' bash -c "blueman" # Launch bluetui
-    ;;
-  *)
-    # Extract device name
-    device_name="${selected_option#* }"
-    device_name="${device_name## }"
-
-    if [[ -n "$device_name" ]]; then
-      # Get MAC address
-      device_mac=$(bluetoothctl devices | grep "$device_name" | awk '{print $2}')
-
-      # Trust and pair device
-      bluetoothctl trust "$device_mac" >/dev/null 2>&1
-      bluetoothctl pair "$device_mac" >/dev/null 2>&1
-
-      # Connect to device
-      bluetoothctl connect "$device_mac" &
-      sleep 3
-      connection_status=$(bluetoothctl info "$device_mac" | grep "Connected:" | awk '{print $2}')
-
-      if [[ "$connection_status" == "yes" ]]; then
-        notify-send "Connected to \"$device_name\"." -i "package-installed-outdated"
-        exit
-      else
-        notify-send "Failed to connect to \"$device_name\"." -i "package-broken"
-      fi
-    fi
-    ;;
-  esac
+    # Device action menu
+    action=$(device_action_menu "$mac")
+    [[ -z "$action" ]] && continue
+    case "$action" in
+        Connect) bluetoothctl connect "$mac" ;;
+        Disconnect) bluetoothctl disconnect "$mac" ;;
+        Pair) bluetoothctl pair "$mac" ;;
+        Remove) bluetoothctl remove "$mac" ;;
+        Back) continue ;;
+    esac
 done
+

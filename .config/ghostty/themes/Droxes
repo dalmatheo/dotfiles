@@ -20,6 +20,4 @@ cursor-color = #4F4F4F
 selection-background = #75B4FB
 selection-foreground = #171717
 font-size=16
-cursor-style=bar
 cursor-style-blink=false
-adjust-cursor-thickness=1

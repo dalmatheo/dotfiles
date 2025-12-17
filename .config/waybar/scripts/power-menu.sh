@@ -1,27 +1,38 @@
 #!/usr/bin/env bash
-actions=$(echo -e "  Lock\n  Shutdown\n  Reboot\n  Suspend\n  Hibernate\n󰞘  Logout")
+#!/usr/bin/env bash
 
-# Display logout menu
-selected_option=$(echo -e "$actions" | fuzzel --dmenu "${config}" || pkill -x fuzzel)
+choice=$(printf '%s\n' \
+  "Lock" \
+  "Shutdown" \
+  "Reboot" \
+  "Suspend" \
+  "Hibernate" \
+  "Logout" \
+  | fuzzel --dmenu
+)
 
-# Perform actions based on the selected option
-case "$selected_option" in
-*Lock)
-  loginctl lock-session
-  ;;
-*Shutdown)
-  systemctl poweroff
-  ;;
-*Reboot)
-  systemctl reboot
-  ;;
-*Suspend)
-  systemctl suspend
-  ;;
-*Hibernate)
-  systemctl hibernate
-  ;;
-*Logout)
-  loginctl kill-session "$XDG_SESSION_ID"
-  ;;
+[ -z "$choice" ] && exit 0
+
+case "$choice" in
+  *Lock)
+    hyprlock
+    ;;
+  *Shutdown)
+    systemctl poweroff
+    ;;
+  *Reboot)
+    systemctl reboot
+    ;;
+  *Suspend)
+    systemctl suspend
+    ;;
+  *Hibernate)
+    systemctl hibernate
+    ;;
+  *Logout)
+    # If this misbehaves, you can instead use:
+    # hyprctl dispatch exit 0
+    loginctl kill-session "$XDG_SESSION_ID"
+    ;;
 esac
+

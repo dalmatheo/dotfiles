@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=ARK: Survival Evolved
-Comment=Play this game on Steam
-Exec=steam steam://rungameid/346110
-Icon=steam_icon_346110
-Terminal=false
-Type=Application
-Categories=Game;
