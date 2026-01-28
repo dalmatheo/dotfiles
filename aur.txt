@@ -1,0 +1,11 @@
+adwaita-qt6
+bibata-cursor-theme-bin
+epson-inkjet-printer-escpr-bin
+epson-inkjet-printer-escpr2-bin
+haguichi
+heroic-games-launcher-bin
+logmein-hamachi
+outlook-for-linux-bin
+pwvucontrol
+teams-for-linux-bin
+zen-browser-bin
