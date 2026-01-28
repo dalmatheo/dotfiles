@@ -66,17 +66,12 @@ fi
 cd "$HOME" || exit 1
 
 echo "Enabling services..."
-sudo systemctl enable sddm.service
+sudo systemctl enable greetd.service
 sudo systemctl enable bluetooth.service
 
-echo "Configuring SDDM..."
-sudo mkdir -p /etc/sddm.conf.d/
-if [ -d "$HOME/dotfiles/sddm/configuration" ]; then
-    sudo cp "$HOME"/dotfiles/sddm/configuration/* /etc/sddm.conf.d/
-fi
-
-if [ -d "$HOME/dotfiles/sddm/sddm-theme" ]; then
-    sudo cp -r "$HOME"/dotfiles/sddm/sddm-theme /usr/share/sddm/themes/sddm-theme
+echo "Configuring greetd..."
+if [ -d "$HOME/dotfiles/greetd" ]; then
+    sudo cp -r "$HOME"/dotfiles/greetd /etc/greetd
 fi
 
 # 7. Install Oh My Zsh (if not present)
