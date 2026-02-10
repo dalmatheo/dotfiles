@@ -104,4 +104,5 @@ alias ls="ls -A --color=auto"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-. /usr/share/nvm/init-nvm.sh
+setopt globdots
+unsetopt CASE_GLOB
