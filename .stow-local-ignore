@@ -1,5 +1,5 @@
 .git
-.gitmodule
+.gitmodules
 install.sh
 aur.txt
 packages.txt
