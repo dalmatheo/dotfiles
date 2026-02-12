@@ -1,3 +1,6 @@
 .git
+.gitmodule
 install.sh
-sddm
+aur.txt
+packages.txt
+sddm.conf
