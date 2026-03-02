@@ -1,8 +1,9 @@
-adwaita-qt6
 banana-coding-style-checker-bin
 epiclang-bin
-nautilus-open-any-terminal
 outlook-for-linux-bin
+paru
+paru-debug
+poweralertd
 pwvucontrol
 sddm-silent-theme
 teams-for-linux-bin

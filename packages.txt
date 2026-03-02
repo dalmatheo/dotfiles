@@ -1,5 +1,6 @@
-adw-gtk-theme
 amd-ucode
+ascii
+base
 base-devel
 blueman
 bluez
@@ -14,14 +15,22 @@ criterion
 discord
 docker
 docker-compose
+efibootmgr
 eog
 fastfetch
-flatpak
+firefox
 foot
+foot-terminfo
 fuzzel
 gdb
+gdu
 git
+git-delta
+gnome-disk-utility
 gnome-system-monitor
+gnome-themes-extra
+grub
+grub-btrfs
 hypridle
 hyprland
 hyprlock
@@ -34,6 +43,8 @@ linux
 linux-firmware
 linux-headers
 mako
+man-db
+man-pages
 meson
 nautilus
 neovim
@@ -50,8 +61,8 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
-qt5-wayland
-qt6-wayland
+power-profiles-daemon
+sbctl
 sddm
 steam
 stow
@@ -65,4 +76,5 @@ waybar
 wireplumber
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
+zram-generator
 zsh

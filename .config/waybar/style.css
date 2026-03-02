@@ -13,8 +13,8 @@ window#waybar {
 
 /* Distribution Icon */
 #custom-distro {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
     margin-left: 10px;
@@ -22,143 +22,144 @@ window#waybar {
 }
 
 #custom-distro:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
 /* Workspace Buttons */
 button {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     border-radius: 0px 0px 0px 0px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
 button.active {
-    color: #89b4fa;
+    color: @theme_selected_fg_color;
 }
 
 /* Backlight icon */
 #backlight {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 #backlight:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
 /* Powerprofile icon */
 #custom-powerprofile {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 #custom-powerprofile:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
 /* Network icon */
 #network {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 0px 5px 5px 0px;
 }
 
 #network:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
 /* Bluetooth Icon */
 #bluetooth {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 0px 5px 5px 0px;
 }
 
 #bluetooth:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
 /* Middle Pannel */
 
 /* Clock */
 #clock {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 5px 5px 5px 5px;
 }
 
 #clock:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
 /* Right Pannel */
 
 /* WirePlumber */
 #wireplumber {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 5px 0px 0px 5px;
 }
 
 #wireplumber:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
-/* Tray icons */
 #tray {
-    background: rgba(255, 255, 255, 0.1);
-    
+    padding: 0 10px;
+    background: @theme_bg_color;
 }
 
-#tray * {
-    color: white;
-    padding-left: 10px;
-    padding-right: 10px;
+#tray > .passive,
+#tray > .active,
+#tray > .needs-attention {
+    background: transparent;
 }
 
-#tray *:hover  {
-    background: rgba(255, 255, 255, 0.1);
+#tray > .passive:hover,
+#tray > .active:hover,
+#tray > .needs-attention:hover {
+    background: @theme_selected_bg_color;
 }
 
 #tray menu {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.65);
+    color: @theme_fg_color;
+    background-color: @theme_bg_color;
 }
 
 /* Battery */
 #battery {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 #battery:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
 
 /* Disk Usage */
 #disk {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: @theme_bg_color;
+    color: @theme_fg_color;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 0px 5px 5px 0px;
@@ -166,5 +167,5 @@ button.active {
 }
 
 #disk:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: @theme_selected_bg_color;
 }
