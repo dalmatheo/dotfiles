@@ -1,0 +1,5 @@
+[icon]
+prepend_dirs = [
+    { name = "Games", text = "󰊗", fg = "#00bcd4" },
+	{ name = "dotfiles", text = "", fg = "#00bcd4" }
+]

@@ -1,10 +1,11 @@
 banana-coding-style-checker-bin
+creamlinux-installer-bin
 epiclang-bin
+heroic-games-launcher-bin
 outlook-for-linux-bin
-paru
-paru-debug
-poweralertd
+procon2-driver-bin
 pwvucontrol
 sddm-silent-theme
 teams-for-linux-bin
+visual-studio-code-bin
 zen-browser-bin
