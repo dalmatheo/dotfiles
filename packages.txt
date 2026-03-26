@@ -17,7 +17,6 @@ criterion
 csfml
 cuda
 discord
-dnsmasq
 docker
 docker-compose
 efibootmgr
@@ -26,6 +25,7 @@ foot
 foot-terminfo
 fuse2
 fuzzel
+fzf
 gdb
 gdu
 git
@@ -41,7 +41,6 @@ hyprpolkitagent
 hyprshot
 lib32-opencl-nvidia
 libva-nvidia-driver
-libvirt
 linux
 linux-firmware
 linux-headers
@@ -75,6 +74,7 @@ steam
 stow
 sudo
 tk
+transmission-gtk
 ttf-dejavu
 ttf-jetbrains-mono-nerd
 ttf-liberation
@@ -86,5 +86,6 @@ wireplumber
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 yazi
+zip
 zram-generator
 zsh
