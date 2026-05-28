@@ -78,7 +78,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias ls="ls -A --color=auto"
 export EDITOR='nvim'
-export CC=epiclang  
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
