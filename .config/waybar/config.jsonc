@@ -36,6 +36,8 @@
       "default": "",
       "empty": ""
     },
+    "ignore-workspaces": ["6","7","8","9","10"],
+    "all-outputs": false,
     "sort-by-number": true,
     "tooltip": false
   },
